@@ -1,0 +1,14 @@
+=== PART 1: ADMINISTRATIVE INSTITUTIONAL OUTCOMES ===
+outcome_status	student_count	pct_of_cohort	avg_sem1_grade	avg_sem2_grade	avg_failed_units	tuition_current_pct	debtor_pct	scholarship_pct
+Dropout	1421	32.12%	7.26	5.90	7.11	67.84%	21.96%	9.43%
+Enrolled	794	17.95%	11.13	11.12	3.53	94.71%	11.34%	16.37%
+Graduate	2209	49.93%	12.64	12.70	0.89	98.69%	4.57%	37.80%
+
+=== PART 2: HEURISTIC ACADEMIC RISK LEVEL VS ACTUAL OUTCOME ===
+risk_tier	total_students	graduates	dropouts	enrolled	actual_dropout_rate
+High_Risk	896	75	733	88	81.81%
+Low_Risk	2863	2094	307	462	10.72%
+Moderate_Risk	665	40	381	244	57.29%
+
+NOTE: Heuristic academic risk tiers are rule-based progression indicators derived from credit completion deficits and grade thresholds.
+They provide early warning diagnostics and are distinct from future machine learning predictive models.

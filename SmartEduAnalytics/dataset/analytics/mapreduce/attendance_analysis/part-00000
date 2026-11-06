@@ -1,0 +1,4 @@
+attendance_mode	total_students	avg_attendance_pct	min_attendance_pct	max_attendance_pct	below_75_count	below_75_pct	excellent_90_plus	satisfactory_75_89	warning_50_74	critical_below_50
+Daytime	3941	97.68	0.00	100.00	116	2.94%	3705	120	85	31
+Evening	483	98.20	50.00	100.00	12	2.48%	464	7	12	0
+OVERALL_COHORT	4424	97.74	0.00	100.00	128	2.89%	4169	127	97	31

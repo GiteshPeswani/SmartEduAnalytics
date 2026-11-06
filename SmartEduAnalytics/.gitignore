@@ -1,0 +1,70 @@
+# ==============================================================================
+# SmartEdu Analytics - .gitignore
+# ==============================================================================
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# IDEs & Code Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Archives & Large Compressed Bundles
+*.tar.gz
+*.tar
+*.rar
+*.zip
+*.7z
+
+# Logs & SQLite Journals
+*.log
+*.sqlite3-journal
+*.db-journal
+logs/
+
+# Build & Distribution Artifacts
+build/
+dist/
+*.egg-info/
+.eggs/

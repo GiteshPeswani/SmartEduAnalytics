@@ -1,0 +1,4 @@
+target_outcome	students	avg_sem1_grade	avg_sem2_grade	avg_annual_grade	avg_failed_units	tuition_current_pct	debtor_pct	scholarship_pct	pct_of_cohort
+Dropout	1421	7.26	5.9	6.58	7.11	67.84	21.96	9.43	32.12
+Enrolled	794	11.13	11.12	11.12	3.53	94.71	11.34	16.37	17.95
+Graduate	2209	12.64	12.7	12.67	0.89	98.69	4.57	37.8	49.93

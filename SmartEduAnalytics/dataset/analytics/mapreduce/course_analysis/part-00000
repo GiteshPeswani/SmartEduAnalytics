@@ -1,0 +1,29 @@
+=== COURSE PERFORMANCE RANKINGS ===
+rank	course_id	student_count	avg_annual_grade	avg_units_enrolled	avg_units_approved	unit_pass_rate_pct
+1	Course_9500	766	12.41	15.44	12.73	82.44%
+2	Course_9070	226	11.64	13.38	10.86	81.12%
+3	Course_9085	337	11.51	11.74	8.45	71.92%
+4	Course_9773	331	11.37	11.92	9.40	78.88%
+5	Course_9238	355	11.18	12.69	10.10	79.60%
+6	Course_9853	192	11.02	13.43	9.77	72.73%
+7	Course_9670	268	11.01	11.62	8.20	70.61%
+8	Course_9254	252	10.19	12.28	8.23	67.00%
+9	Course_8014	215	10.18	13.87	10.12	72.94%
+10	Course_9556	86	10.05	14.15	9.43	66.64%
+11	Course_9003	210	9.93	15.12	10.22	67.60%
+12	Course_9147	380	9.91	11.05	7.23	65.41%
+13	Course_9130	141	9.88	11.32	6.55	57.83%
+14	Course_33	12	9.32	19.08	10.75	56.33%
+15	Course_9991	268	9.16	11.95	7.56	63.28%
+16	Course_9119	170	8.68	10.38	4.61	44.39%
+17	Course_171	215	2.08	4.21	3.78	89.74%
+
+=== TOP 3 HIGHEST PERFORMING COURSES ===
+Top 1: Course_9500 - Avg Grade: 12.41/20 (Pass Rate: 82.44%, Students: 766)
+Top 2: Course_9070 - Avg Grade: 11.64/20 (Pass Rate: 81.12%, Students: 226)
+Top 3: Course_9085 - Avg Grade: 11.51/20 (Pass Rate: 71.92%, Students: 337)
+
+=== TOP 3 LOWEST PERFORMING COURSES ===
+Bottom 1: Course_171 - Avg Grade: 2.08/20 (Pass Rate: 89.74%, Students: 215)
+Bottom 2: Course_9119 - Avg Grade: 8.68/20 (Pass Rate: 44.39%, Students: 170)
+Bottom 3: Course_9991 - Avg Grade: 9.16/20 (Pass Rate: 63.28%, Students: 268)

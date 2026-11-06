@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartEdu Analytics - Big Data & ML Student Retention Platform</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49'
+            }
+          }
+        }
+      }
+    };
+
+    // Immediate Inline Tab Switcher (Guaranteed Zero Latency)
+    window.switchTab = function(tabId) {
+      document.querySelectorAll('.tab-content').forEach(function(el) {
+        el.classList.add('hidden');
+      });
+      document.querySelectorAll('.nav-item').forEach(function(el) {
+        el.classList.remove('bg-sky-600', 'text-white', 'shadow-sm');
+        el.classList.add('text-slate-400');
+      });
+
+      var targetTab = document.getElementById('tab-' + tabId);
+      var targetNav = document.getElementById('nav-' + tabId);
+      if (targetTab) {
+        targetTab.classList.remove('hidden');
+      }
+      if (targetNav) {
+        targetNav.classList.remove('text-slate-400');
+        targetNav.classList.add('bg-sky-600', 'text-white', 'shadow-sm');
+      }
+
+      var titles = {
+        'overview': ['Institutional Performance Overview', 'Real-time cohort insights across 4,424 student records'],
+        'students': ['Student Directory & Academic Tracking', 'Searchable profiles and dynamic retention indicators'],
+        'cloudera': ['Cloudera Hadoop & Distributed Big Data Infrastructure', 'HDFS Namespaces, MapReduce Streaming, and Apache Hive Data Warehouse (CDH 5.13.0)'],
+        'performance': ['Course Performance & Attendance Analytics', 'Curricular pass rates and shift impact comparisons'],
+        'risk': ['Supervised ML Dropout Risk Modeling', 'Predictive diagnostic signals and early retention warnings'],
+        'recommendations': ['Actionable Student Intervention Catalog', 'Prescriptive student success workflows and tutoring plans'],
+        'reports': ['Pipeline Documentation & Data Exports', 'Verified artifacts from Phases 1 through 10']
+      };
+      if (titles[tabId]) {
+        var pt = document.getElementById('page-title');
+        var ps = document.getElementById('page-subtitle');
+        if (pt) pt.innerText = titles[tabId][0];
+        if (ps) ps.innerText = titles[tabId][1];
+      }
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    };
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shadow-xl flex-shrink-0">
+    <div>
+      <!-- Brand Logo -->
+      <div class="px-6 py-5 border-b border-slate-800 flex items-center gap-3">
+        <div class="bg-sky-500 text-white p-2 rounded-lg shadow-md flex items-center justify-center">
+          <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-white tracking-wide text-lg">SmartEdu</h1>
+          <p class="text-xs text-sky-400 font-medium">Big Data & AI Retention</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="mt-6 px-3 space-y-1.5" id="nav-menu">
+        <button onclick="switchTab('overview')" id="nav-overview" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors bg-sky-600 text-white shadow-sm">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span>Overview</span>
+        </button>
+        <button onclick="switchTab('students')" id="nav-students" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          <span>Student Roster</span>
+        </button>
+        <button onclick="switchTab('performance')" id="nav-performance" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+          <span>Performance Analytics</span>
+        </button>
+        <button onclick="switchTab('risk')" id="nav-risk" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i>
+          <span>Dropout Risk ML</span>
+        </button>
+        <button onclick="switchTab('recommendations')" id="nav-recommendations" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="sparkles" class="w-4 h-4 text-sky-400"></i>
+          <span>Interventions</span>
+        </button>
+        <button onclick="switchTab('reports')" id="nav-reports" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+          <span>Reports & Export</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- User Profile & System Status -->
+    <!-- System Version Info -->
+    <div class="p-4 border-t border-slate-800 text-center">
+      <p class="text-xs text-slate-500 font-mono">SmartEdu Analytics v1.0</p>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col overflow-y-auto">
+    <!-- Top Header -->
+    <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between sticky top-0 z-10 shadow-xs">
+      <div>
+        <h2 id="page-title" class="text-xl font-bold text-slate-800">Institutional Performance Overview</h2>
+        <p id="page-subtitle" class="text-xs text-slate-500">Real-time cohort insights across 4,424 student records</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="refreshDashboard()" class="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          <span>Refresh Data</span>
+        </button>
+        <a href="/api/reports/export" target="_blank" class="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white bg-sky-600 hover:bg-sky-700 rounded-md shadow-xs transition-colors">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Export Predictions CSV</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Tab Containers -->
+    <div class="p-8 space-y-6">
+
+      <!-- ================= 1. OVERVIEW TAB ================= -->
+      <section id="tab-overview" class="tab-content space-y-6">
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Cohort Enrolled</p>
+              <h3 id="kpi-total-students" class="text-2xl font-bold text-slate-800 mt-1">4,424</h3>
+              <p class="text-xs text-emerald-600 font-medium mt-1 flex items-center gap-1">
+                <i data-lucide="check-circle" class="w-3 h-3"></i> 100% Ingested
+              </p>
+            </div>
+            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Overall GPA Average</p>
+              <h3 id="kpi-avg-grade" class="text-2xl font-bold text-slate-800 mt-1">11.53 / 20</h3>
+              <p class="text-xs text-slate-500 font-medium mt-1">Passing threshold: 10.0</p>
+            </div>
+            <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Predicted High Risk</p>
+              <h3 id="kpi-high-risk" class="text-2xl font-bold text-rose-600 mt-1">1,033</h3>
+              <p class="text-xs text-rose-500 font-medium mt-1">23.3% of cohort flagged</p>
+            </div>
+            <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
+              <i data-lucide="alert-octagon" class="w-6 h-6"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+            <div>
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Critical Interventions</p>
+              <h3 id="kpi-critical-recs" class="text-2xl font-bold text-amber-600 mt-1">3,792</h3>
+              <p class="text-xs text-amber-600 font-medium mt-1">Immediate advisory needed</p>
+            </div>
+            <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Donut: Risk Distribution -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm">Dropout Risk Tier Distribution</h4>
+              <p class="text-xs text-slate-400 mt-0.5">Calibrated ML classification model</p>
+            </div>
+            <div class="my-4 flex items-center justify-center h-56">
+              <canvas id="chart-risk-donut"></canvas>
+            </div>
+            <div class="grid grid-cols-3 text-center border-t border-slate-100 pt-3">
+              <div>
+                <p class="text-xs text-slate-400">Low Risk</p>
+                <p class="font-bold text-emerald-600 text-sm">67.6%</p>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400">Medium Risk</p>
+                <p class="font-bold text-amber-600 text-sm">9.1%</p>
+              </div>
+              <div>
+                <p class="text-xs text-slate-400">High Risk</p>
+                <p class="font-bold text-rose-600 text-sm">23.3%</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bar: Course Pass & Dropout Rates -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs lg:col-span-2 flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-slate-800 text-sm">Course Academic Performance & Attrition Rates</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Average GPA and dropout percentage by degree program</p>
+              </div>
+            </div>
+            <div class="my-4 h-56">
+              <canvas id="chart-course-bar"></canvas>
+            </div>
+            <p class="text-xs text-slate-400 text-right">Data aggregated from MySQL / Apache Spark Phase 6</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. STUDENTS ROSTER TAB ================= -->
+      <section id="tab-students" class="tab-content hidden space-y-4">
+        <!-- Search and Filter Bar -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3 flex-1 min-w-[280px]">
+            <div class="relative w-full">
+              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
+              <input type="text" id="student-search-input" onkeyup="handleStudentSearch(event)" placeholder="Search Student ID (e.g. STD_10001)..." class="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <label class="text-xs font-semibold text-slate-500">Risk Filter:</label>
+            <select id="student-risk-filter" onchange="loadStudentsData(1)" class="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="ALL">All Risk Levels</option>
+              <option value="High Risk">High Risk Only</option>
+              <option value="Medium Risk">Medium Risk Only</option>
+              <option value="Low Risk">Low Risk Only</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+              <thead class="bg-slate-50 text-slate-600 uppercase text-xs border-b border-slate-200 font-semibold tracking-wider">
+                <tr>
+                  <th class="px-5 py-3">Student ID</th>
+                  <th class="px-4 py-3">Course ID</th>
+                  <th class="px-4 py-3">Annual GPA</th>
+                  <th class="px-4 py-3">Failed Units</th>
+                  <th class="px-4 py-3">Attendance</th>
+                  <th class="px-4 py-3">Dropout Probability</th>
+                  <th class="px-4 py-3">Risk Tier</th>
+                  <th class="px-4 py-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="student-table-body" class="divide-y divide-slate-100">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="p-4 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+            <span id="pagination-info">Showing 1 to 15 of 4,424 students</span>
+            <div class="flex items-center gap-2">
+              <button id="btn-prev-page" onclick="prevStudentPage()" class="px-3 py-1.5 border border-slate-200 rounded hover:bg-slate-100 disabled:opacity-40">Previous</button>
+              <span id="current-page-num" class="font-bold px-2 text-slate-700">1</span>
+              <button id="btn-next-page" onclick="nextStudentPage()" class="px-3 py-1.5 border border-slate-200 rounded hover:bg-slate-100 disabled:opacity-40">Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. PERFORMANCE ANALYTICS TAB ================= -->
+      <section id="tab-performance" class="tab-content hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+            <h4 class="font-bold text-slate-800 text-sm">Attendance Tier vs. Dropout Risk</h4>
+            <p class="text-xs text-slate-400 mt-0.5">Impact of lecture attendance on course completion</p>
+            <div class="mt-4 h-64">
+              <canvas id="chart-attendance-bar"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+            <h4 class="font-bold text-slate-800 text-sm">Daytime vs. Evening Shift Comparison</h4>
+            <p class="text-xs text-slate-400 mt-0.5">Attrition risk disparity among evening cohort</p>
+            <div class="mt-4 h-64 flex items-center justify-center">
+              <canvas id="chart-schedule-pie"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. DROPOUT RISK ML TAB ================= -->
+      <section id="tab-risk" class="tab-content hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+          <h4 class="font-bold text-slate-800 text-sm">Supervised Machine Learning Model Benchmarks</h4>
+          <p class="text-xs text-slate-400 mt-0.5">Comparative validation metrics across 4 candidate algorithms (Phase 8)</p>
+          <div class="mt-4 h-64">
+            <canvas id="chart-ml-benchmarks"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+          <h4 class="font-bold text-slate-800 text-sm text-rose-600">Top Priority At-Risk Students Requiring Direct Intervention</h4>
+          <p class="text-xs text-slate-400 mt-0.5">Highest dropout probability predictions generated by Gradient Boosting classifier</p>
+          <div class="mt-4 overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-slate-50 text-slate-600 uppercase text-xs">
+                <tr>
+                  <th class="p-3">Student ID</th>
+                  <th class="p-3">Probability</th>
+                  <th class="p-3">Annual GPA</th>
+                  <th class="p-3">Failed Units</th>
+                  <th class="p-3">Primary Contributing Factors</th>
+                  <th class="p-3 text-right">View Profile</th>
+                </tr>
+              </thead>
+              <tbody id="top-risk-table-body" class="divide-y divide-slate-100">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. RECOMMENDATIONS TAB ================= -->
+      <section id="tab-recommendations" class="tab-content hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm">Actionable Student Intervention Pathways</h4>
+              <p class="text-xs text-slate-400 mt-0.5">Domain-driven prescriptive retention plans generated in Phase 9</p>
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="rec-cards-container">
+            <!-- Sample intervention cards loaded via API -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 6. REPORTS & EXPORT TAB ================= -->
+      <section id="tab-reports" class="tab-content hidden space-y-6">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
+          <h4 class="font-bold text-slate-800 text-base">Comprehensive End-to-End System Reports</h4>
+          <p class="text-sm text-slate-500">
+            Export the synthesized analytical datasets, machine learning risk classifications, and intervention recommendations generated across the 10-phase pipeline.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+            <div class="p-4 border border-slate-200 rounded-lg flex items-center justify-between">
+              <div>
+                <h5 class="font-semibold text-slate-800 text-sm">Dropout Risk Predictions (Phase 8)</h5>
+                <p class="text-xs text-slate-400 mt-1">4,424 student probabilities, tiers, and primary diagnostic factors.</p>
+              </div>
+              <a href="/api/reports/export" target="_blank" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold rounded-md shadow-xs flex items-center gap-2">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Download CSV
+              </a>
+            </div>
+
+            <div class="p-4 border border-slate-200 rounded-lg flex items-center justify-between">
+              <div>
+                <h5 class="font-semibold text-slate-800 text-sm">Personalized Interventions (Phase 9)</h5>
+                <p class="text-xs text-slate-400 mt-1">9,952 prioritized action items for tutoring, counseling, and mentorship.</p>
+              </div>
+              <a href="/dataset/analytics/recommendations/student_recommendations.csv" download class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-md shadow-xs flex items-center gap-2">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Download CSV
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Student Profile Modal Dialog -->
+  <div id="student-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+        <div>
+          <h3 id="modal-student-id" class="text-lg font-bold">Student Profile</h3>
+          <p id="modal-course-title" class="text-xs text-sky-400">Course #9119 - Informatics Engineering</p>
+        </div>
+        <button onclick="closeStudentModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto space-y-5" id="modal-body-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

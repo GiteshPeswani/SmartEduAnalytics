@@ -1,0 +1,56 @@
+# ==============================================================================
+# SmartEdu Analytics - HDFS Directory Hierarchy & Storage Layout
+# Cluster: Cloudera QuickStart VM 5.13.0 (Hadoop 2.6.0-cdh5.13.0)
+# Base URI: hdfs://quickstart.cloudera:8020/smartedu
+# ==============================================================================
+
+/smartedu/
+│
+├── raw/
+│   │   # Immutable landing zone for unmodified student datasets
+│   └── raw_student_data.csv
+│       ├── File Size       : 533,230 bytes (~520.73 KB)
+│       ├── Record Count    : 4,424 records (plus 1 header line)
+│       ├── Attributes      : 37 columns
+│       ├── Format          : CSV (Semicolon ';' delimited, UTF-8-sig)
+│       ├── HDFS Block Count: 1 block (Block size: 128 MB)
+│       └── Source          : UCI Machine Learning Repository (ID: 697)
+│
+├── processed/
+│   │   # Harmonized, cleaned, encoded, and partitioned datasets
+│   │
+│   ├── cleaned_student_data.csv
+│   │   ├── File Size       : 577,267 bytes (~563.74 KB)
+│   │   ├── Record Count    : 4,424 records (plus 1 header line)
+│   │   ├── Attributes      : 38 columns (includes unique 'student_id')
+│   │   ├── Format          : CSV (Comma ',' delimited, UTF-8)
+│   │   └── Schema          : Standardized snake_case
+│   │
+│   ├── preprocessed_student_data.csv
+│   │   ├── File Size       : 853,423 bytes (~833.42 KB)
+│   │   ├── Record Count    : 4,424 records (plus 1 header line)
+│   │   ├── Attributes      : 47 columns
+│   │   └── Features        : Engineered progression metrics, academic_risk_score,
+│   │                         academic_risk_level, and is_dropout ground-truth target
+│   │
+│   ├── train_data.csv
+│   │   ├── File Size       : 1,374,714 bytes (~1.31 MB)
+│   │   ├── Record Count    : 3,539 training records (80% Stratified split)
+│   │   ├── Attributes      : 57 columns (includes standardized numerical features)
+│   │   └── Purpose         : Training distributed MapReduce & Spark ML pipelines
+│   │
+│   └── test_data.csv
+│       ├── File Size       : 344,949 bytes (~336.86 KB)
+│       ├── Record Count    : 885 evaluation records (20% Stratified split)
+│       ├── Attributes      : 57 columns
+│       └── Purpose         : Untouched evaluation partition for unbiased ML assessment
+│
+├── analytics/
+│   │   # Target storage for future analytics, MapReduce job outputs & Spark jobs
+│   └── (Designated for Phase 3: MapReduce outputs, part-r-00000 files)
+│
+└── reports/
+    │   # Project documentation, data profiling summaries, and execution logs
+    └── dataset_summary.txt
+        ├── File Size       : 8,269 bytes (~8.08 KB)
+        └── Contents        : Comprehensive statistical profiling, class counts & schema
